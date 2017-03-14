@@ -98,6 +98,8 @@ public class VarastoTest {
     public void toStringTulostaaOikein() {
         varasto.lisaaVarastoon(8);
 
-        assertEquals("saldo = 5.0, vielä tilaa 5.0");
+        String vastaus = varasto.toString();
+
+        assertEquals("saldo = 5.0, vielä tilaa 5.0", vastaus);
     }
 }
