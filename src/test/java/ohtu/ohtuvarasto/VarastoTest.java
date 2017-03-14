@@ -87,4 +87,17 @@ public class VarastoTest {
         assertEquals(0, varasto.otaVarastosta(-3), vertailuTarkkuus);
     }
 
+    @Test
+    public void lisaaVarastoonNegatiivinenMaara() {
+        varasto.lisaaVarastoon(-5);
+
+        assertEquals(0, varasto.getSaldo(), vertailuTarkkuus);
+    }
+
+    @Test
+    public void toStringTulostaaOikein() {
+        varasto.lisaaVarastoon(8);
+
+        assertEquals("saldo = 5.0, vielä tilaa 5.0");
+    }
 }
