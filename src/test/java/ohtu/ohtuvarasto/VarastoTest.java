@@ -13,11 +13,24 @@ import static org.junit.Assert.*;
 public class VarastoTest {
 
     Varasto varasto;
+    Varasto tyhjaVarasto;
+    Varasto kuormitettuVarasto;
+    Varasto huonoKuormitettuVarasto;
+    Varasto kuormitettuVarastoLiianTaysi;
     double vertailuTarkkuus = 0.0001;
 
     @Before
     public void setUp() {
         varasto = new Varasto(10);
+        tyhjaVarasto = new Varasto(-22);
+        kuormitettuVarasto = new Varasto(10, 5);
+        huonoKuormitettuVarasto = new Varasto(-10, -5);
+        kuormitettuVarastoLiianTaysi = new Varasto(5, 10);
+    }
+
+    @Test
+    public void voidaanLuodaTyhjanTilavuudenVarasto() {
+        assertEquals(0.0, tyhjaVarasto.getTilavuus(), vertailuTarkkuus);
     }
 
     @Test
@@ -100,6 +113,32 @@ public class VarastoTest {
 
         String vastaus = varasto.toString();
 
-        assertEquals("saldo = 5.0, vielä tilaa 5.0", vastaus);
+        assertEquals("saldo = 8.0, vielä tilaa 2.0", vastaus, vertailuTarkkuus);
     }
+
+    @Test
+    public void kuormitetullaVarastollaOikeaTilavuus() {
+        assertEquals(10, kuormitettuVarasto.getTilavuus(), vertailuTarkkuus);
+    }
+
+    @Test
+    public void kuormitetullaVarastollaOikeaSaldo() {
+        assertEquals(5, kuormitettuVarasto.getSaldo(), vertailuTarkkuus);
+    }
+    
+    @Test
+    public void josKuormitetunVarastonTilavuusNegatiivinenNiinTilavuusNolla() {
+        assertEquals(0, huonoKuormitettuVarasto.getTilavuus(), vertailuTarkkuus);
+    }
+
+    @Test
+    public void josKuormitetunVarastonSaldoNegatiivinenNiinSaldoNolla() {
+        assertEquals(0, huonoKuormitettuVarasto.getSaldo(), vertailuTarkkuus);
+    }
+
+    @Test
+    public void josKuormitetunVarastonSaldoLiianIso() {
+        assertEquals(5, kuormitettuVarastoLiianTaysi.getSaldo(), vertailuTarkkuus);
+    }
+
 }
